@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, CardSkeleton } from "@/shared/components";
 import { CLI_TOOLS } from "@/shared/constants/cliTools";
 import { getModelsByProviderId, PROVIDER_ID_TO_ALIAS } from "@/shared/constants/models";
+import { formatCodexConnectionName } from "@/shared/utils/codexWorkspace";
 import { ClaudeToolCard, CodexToolCard, DroidToolCard, OpenClawToolCard, HermesToolCard, DefaultToolCard, OpenCodeToolCard, CoworkToolCard, CopilotToolCard, ClineToolCard, KiloToolCard, DeepSeekTuiToolCard, MitmLinkCard } from "./components";
 import { MITM_TOOLS } from "@/shared/constants/cliTools";
 
@@ -101,7 +102,7 @@ export default function CLIToolsPageClient({ machineId }) {
         const modelValue = `${alias}/${m.id}`;
         if (!seenModels.has(modelValue)) {
           seenModels.add(modelValue);
-          models.push({ value: modelValue, label: `${alias}/${m.id}`, provider: conn.provider, alias, connectionName: conn.name, modelId: m.id });
+          models.push({ value: modelValue, label: `${alias}/${m.id}`, provider: conn.provider, alias, connectionName: formatCodexConnectionName(conn, conn.name || conn.id), modelId: m.id });
         }
       });
     });
